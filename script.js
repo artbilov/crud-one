@@ -1,14 +1,19 @@
 const createForm = addCreateForm()
 const editForm = addEditForm()
 const strList = addStrList()
-const strings = crud.r()
 
-updateStrList(strings)
+refresh()
 show(createForm)
 
 createForm.onsubmit = handleCreate
 editForm.onsubmit = handleUpdate
 strList.onclick = handleClick
+crud.onchange = refresh
+
+function refresh() {
+  const strings = crud.r()
+  updateStrList(strings)
+}
 
 function addCreateForm() {
   const form = document.createElement('form')
@@ -89,9 +94,7 @@ function handleCreate(e) {
   crud.c(str)
   createForm.reset()
 
-  const strings = crud.r()
-
-  updateStrList(strings)
+  refresh()
 }
 
 function handleUpdate(e) {
@@ -104,9 +107,7 @@ function handleUpdate(e) {
 
     crud.u(oldStr, newStr)
 
-    const strings = crud.r()
-
-    updateStrList(strings)
+    refresh()
   }
   disableEditMode()
 }
@@ -130,9 +131,7 @@ function handleClick(e) {
 function removeItem(str) {
   crud.d(str)
 
-  const strings = crud.r()
-
-  updateStrList(strings)
+  refresh()
 }
 
 function enableEditMode(str) {
