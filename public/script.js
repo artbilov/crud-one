@@ -10,8 +10,8 @@ editForm.onsubmit = handleUpdate
 strList.onclick = handleClick
 crud.onchange = refresh
 
-function refresh() {
-  const strings = crud.r()
+async function refresh() {
+  const strings = await crud.r()
   updateStrList(strings)
 }
 
@@ -84,20 +84,20 @@ function hide(form) {
   form.hidden = true
 }
 
-function handleCreate(e) {
+async function handleCreate(e) {
   e.preventDefault()
 
   const str = createForm[0].value.trim()
 
   if (!str) return
 
-  crud.c(str)
+  await crud.c(str)
   createForm.reset()
 
   refresh()
 }
 
-function handleUpdate(e) {
+async function handleUpdate(e) {
   e.preventDefault()
   const btn = e.submitter
 
@@ -105,9 +105,9 @@ function handleUpdate(e) {
     const oldStr = editForm[0].getAttribute('value')
     const newStr = editForm[0].value
 
-    crud.u(oldStr, newStr)
+    await crud.u(oldStr, newStr)
 
-    refresh()
+    await refresh()
   }
   disableEditMode()
 }
@@ -128,8 +128,8 @@ function handleClick(e) {
   }
 }
 
-function removeItem(str) {
-  crud.d(str)
+async function removeItem(str) {
+  await crud.d(str)
 
   refresh()
 }
