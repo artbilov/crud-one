@@ -25,7 +25,9 @@ const crud = (() => {
       const i = strings.indexOf(str)
       if (i == -1) throw 'string not found'
       strings.splice(i, 1)
-      
+
     }
   }
 })()
+
+if (typeof module !== 'undefined') module.exports = { crud }
