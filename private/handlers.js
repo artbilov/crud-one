@@ -1,6 +1,7 @@
 module.exports = { serveFile, handleApi }
 
-const { crud } = require('../public/crud.js')
+// const { crud } = require('../public/await crud.js')
+const { crud } = require('./crud-fs.js')
 const fs = require('fs')
 
 
@@ -25,7 +26,7 @@ async function handleApi(req, res) {
   if (endpoint == 'create') {
     const { str } = payload
     try {
-      crud.c(str)
+      await crud.c(str)
       res.end()
     } catch (error) {
       res.statusCode = 400
@@ -33,12 +34,12 @@ async function handleApi(req, res) {
     }
 
   } else if (endpoint == 'read') {
-    res.end(JSON.stringify(crud.r()))
+    res.end(JSON.stringify(await crud.r()))
 
   } else if (endpoint == 'update') {
     const { oldStr, newStr } = payload
     try {
-      crud.u(oldStr, newStr)
+      await crud.u(oldStr, newStr)
       res.end()
     } catch (error) {
       res.statusCode = 400
@@ -48,7 +49,7 @@ async function handleApi(req, res) {
   } else if (endpoint == 'delete') {
     const { str } = payload
     try {
-      crud.d(str)
+      await crud.d(str)
       res.end()
     } catch (error) {
       res.statusCode = 400
