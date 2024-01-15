@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { createServer } = require('http')
 const { serveFile, handleApi } = require('./private/handlers.js')
 
