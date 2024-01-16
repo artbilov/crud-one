@@ -2,10 +2,11 @@ module.exports = { serveFile, handleApi }
 
 // const { crud } = require('../public/await crud.js')
 // const { crud } = require('./crud-fs.js')
-const { crud } = require('./crud-mongo.js')
+const { prepareCRUD } = require('./crud-mongo.js')
+let crud
 const fs = require('fs')
 
-
+prepareCRUD().then(_crud => crud = _crud)
 
 function serveFile(req, res) {
   var path = 'public' + req.url

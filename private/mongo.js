@@ -1,7 +1,8 @@
 module.exports = { connectMongo }
 
 async function connectMongo() {
-  
+  await client.connect();
+  return client.db(dbName).collection(collectionName)
 }
 
 const dbName = process.env.MONGO_DB
@@ -33,4 +34,4 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+// run().catch(console.dir);
